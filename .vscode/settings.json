@@ -1,0 +1,37 @@
+{
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.codeActionsOnSave": {
+		"source.fixAll.stylelint": true,
+		"source.addMissingImports": true,
+		"source.fixAll.eslint": true
+	},
+	"stylelint.validate": ["css", "scss"],
+	"css.validate": false,
+	"scss.validate": false,
+	"eslint.format.enable": false,
+	"[html]": {
+		"editor.formatOnSave": true
+	},
+	"[css]": {
+		"editor.formatOnSave": true
+	},
+	"[scss]": {
+		"editor.formatOnSave": true
+	},
+	"[javascript]": {
+		"editor.formatOnSave": true
+	},
+	"[javascriptreact]": {
+		"editor.formatOnSave": true
+	},
+	"[typescript]": {
+		"editor.formatOnSave": true
+	},
+	"[typescriptreact]": {
+		"editor.formatOnSave": true
+	},
+	"[json][jsonc]": {
+		"editor.formatOnSave": true
+	},
+	"typescript.enablePromptUseWorkspaceTsdk": true
+}

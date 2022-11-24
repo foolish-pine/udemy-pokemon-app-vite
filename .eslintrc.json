@@ -1,0 +1,98 @@
+{
+	"env": {
+		"browser": true,
+		"es2022": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:@typescript-eslint/recommended-requiring-type-checking",
+		"standard-with-typescript",
+		"plugin:react/recommended",
+		"plugin:react-hooks/recommended",
+		"prettier"
+	],
+	"overrides": [],
+	"parserOptions": {
+		"ecmaVersion": "latest",
+		"sourceType": "module",
+		"tsconfigRootDir": ".",
+		"project": "./tsconfig.json"
+	},
+	"plugins": [
+		"@typescript-eslint",
+		"react",
+		"react-hooks",
+		"import",
+		"unused-imports"
+	],
+	"ignorePatterns": ["vite.config.ts"],
+	"rules": {
+		"react/jsx-uses-react": "off",
+		"react/react-in-jsx-scope": "off",
+		"padding-line-between-statements": [
+			"error",
+			{
+				"blankLine": "always",
+				"prev": "*",
+				"next": "return"
+			}
+		],
+		"@typescript-eslint/consistent-type-definitions": "off",
+		"@typescript-eslint/explicit-function-return-type": "off",
+		"@typescript-eslint/explicit-module-boundary-types": ["error"],
+		"@typescript-eslint/no-misused-promises": [
+			"error",
+			{
+				"checksVoidReturn": false
+			}
+		],
+		"@typescript-eslint/triple-slash-reference": [
+			"error",
+			{
+				"types": "always"
+			}
+		],
+		"import/order": [
+			"error",
+			{
+				"groups": [
+					"builtin",
+					"external",
+					"internal",
+					"parent",
+					"sibling",
+					"object",
+					"index"
+				],
+				"pathGroups": [
+					{
+						"pattern": "{react,react-dom/**}",
+						"group": "builtin",
+						"position": "before"
+					},
+					{
+						"pattern": "{[A-Z]*,**/[A-Z]*}",
+						"group": "internal",
+						"position": "after"
+					},
+					{
+						"pattern": "./**.module.css",
+						"group": "index",
+						"position": "after"
+					}
+				],
+				"pathGroupsExcludedImportTypes": ["builtin"],
+				"alphabetize": {
+					"order": "asc"
+				}
+			}
+		],
+		"unused-imports/no-unused-imports": "error"
+	},
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	}
+}
