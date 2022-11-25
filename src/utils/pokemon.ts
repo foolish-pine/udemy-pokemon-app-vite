@@ -1,15 +1,19 @@
-type PokeApiUrl = `https://pokeapi.co/api/v2/${string}`;
-type AllPokemonData = {
-	count: number;
-	next: PokeApiUrl;
-	previous: null;
-	results: Array<{ name: string; url: PokeApiUrl }>;
-};
+import { PokeApiUrl, PokemonDetail } from "types/pokemon";
 
 export const getAllPokemon = async (
 	url: PokeApiUrl
-): Promise<AllPokemonData> => {
+): Promise<{
+	results: Array<{ name: string; url: PokeApiUrl }>;
+}> => {
 	const res = await fetch(url);
 
-	return await ((await res.json()) as Promise<AllPokemonData>);
+	return await ((await res.json()) as Promise<{
+		results: Array<{ name: string; url: PokeApiUrl }>;
+	}>);
+};
+
+export const getPokemon = async (url: PokeApiUrl): Promise<PokemonDetail> => {
+	const res = await fetch(url);
+
+	return await ((await res.json()) as Promise<PokemonDetail>);
 };

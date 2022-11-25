@@ -1,16 +1,31 @@
 import { FC, useEffect, useState } from "react";
-import { getAllPokemon } from "utils/pokemon";
+import { PokeApiUrl, PokemonDetail } from "types/pokemon";
+import { getAllPokemon, getPokemon } from "utils/pokemon";
 import "App.css";
+import { Card } from "components/Card/Card";
 
-const App: FC = () => {
+export const App: FC = () => {
 	const initialUrl = "https://pokeapi.co/api/v2/pokemon";
 	const [loading, setLoading] = useState(true);
+	const [pokemonData, setPokemonData] = useState<[] | PokemonDetail[]>([]);
+
+	const loadPokemon = async (
+		data: Array<{ name: string; url: PokeApiUrl }>
+	) => {
+		const _pokemonData = await Promise.all(
+			data.map(async (pokemon) => await getPokemon(pokemon.url))
+		);
+		setPokemonData(_pokemonData);
+	};
 
 	useEffect(() => {
 		const fetchPokemonData = async (): Promise<void> => {
 			// すべてのポケモンデータを取得する
-			const res = await getAllPokemon(initialUrl);
-			console.log(res);
+			const res = (await getAllPokemon(initialUrl)) as {
+				results: Array<{ name: string; url: PokeApiUrl }>;
+			};
+			// 各ポケモンの詳細なデータを取得
+			await loadPokemon(res.results);
 			setLoading(false);
 		};
 		void fetchPokemonData();
@@ -21,10 +36,12 @@ const App: FC = () => {
 			{loading ? (
 				<h1>ロード中・・・</h1>
 			) : (
-				<h1>ポケモンデータを取得しました。</h1>
+				<div className="pokemonCardContainer">
+					{pokemonData.map((pokemon) => {
+						return <Card key={pokemon.name} pokemon={pokemon} />;
+					})}
+				</div>
 			)}
 		</div>
 	);
 };
-
-export default App;
