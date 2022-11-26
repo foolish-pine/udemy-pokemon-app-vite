@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { PokeApiUrl, PokemonDetail } from "types/pokemon";
 import { getAllPokemon, getPokemon } from "utils/pokemon";
 import { Card } from "components/Card/Card";
+import { Navbar } from "components/Navbar/Navbar";
 
 import "App.css";
 
@@ -33,16 +34,19 @@ export const App: FC = () => {
 	}, []);
 
 	return (
-		<div className="App">
-			{loading ? (
-				<h1>ロード中・・・</h1>
-			) : (
-				<div className="pokemonCardContainer">
-					{pokemonData.map((pokemon) => {
-						return <Card key={pokemon.name} pokemon={pokemon} />;
-					})}
-				</div>
-			)}
-		</div>
+		<>
+			<Navbar />
+			<div className="App">
+				{loading ? (
+					<h1>ロード中・・・</h1>
+				) : (
+					<div className="pokemonCardContainer">
+						{pokemonData.map((pokemon) => {
+							return <Card key={pokemon.name} pokemon={pokemon} />;
+						})}
+					</div>
+				)}
+			</div>
+		</>
 	);
 };
