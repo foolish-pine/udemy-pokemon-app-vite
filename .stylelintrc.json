@@ -1,5 +1,23 @@
 {
-	"extends": ["stylelint-config-standard", "stylelint-config-recess-order"],
+	"extends": [
+		"stylelint-config-standard",
+		"stylelint-prettier/recommended",
+		"stylelint-config-recess-order"
+	],
 	"ignoreFiles": ["**/node_modules/**"],
-	"plugins": ["stylelint-order"]
+	"rules": {
+		"at-rule-empty-line-before": [
+			"always",
+			{
+				"except": ["blockless-after-blockless", "first-nested"],
+				"ignore": ["after-comment"],
+				"ignoreAtRules": ["else"]
+			}
+		],
+		"declaration-block-no-duplicate-properties": true,
+		"declaration-block-no-redundant-longhand-properties": null,
+		"keyframes-name-pattern": null,
+		"selector-class-pattern": null,
+		"selector-id-pattern": null
+	}
 }

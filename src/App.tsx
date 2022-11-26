@@ -1,8 +1,9 @@
 import { FC, useEffect, useState } from "react";
 import { PokeApiUrl, PokemonDetail } from "types/pokemon";
 import { getAllPokemon, getPokemon } from "utils/pokemon";
-import "App.css";
 import { Card } from "components/Card/Card";
+
+import "App.css";
 
 export const App: FC = () => {
 	const initialUrl = "https://pokeapi.co/api/v2/pokemon";

@@ -1,0 +1,17 @@
+.card {
+	width: 290px;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 2px 8px 21px -2px #777;
+}
+
+.cardName {
+	padding: 0;
+	margin-top: 0;
+	margin-bottom: 10px;
+	font-size: 24px;
+}
+
+.cardInfo {
+	text-align: center;
+}

@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { PokemonDetail } from "types/pokemon";
 
+import "components/Card/Card.css";
+
 type Props = {
 	pokemon: PokemonDetail;
 };
