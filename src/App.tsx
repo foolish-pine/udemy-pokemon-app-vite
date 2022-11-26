@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { PokeApiUrl, PokemonDetail } from "types/pokemon";
+import { AllPokemonData, PokeApiUrl, PokemonDetail } from "types/pokemon";
 import { getAllPokemon, getPokemon } from "utils/pokemon";
 import { Card } from "components/Card/Card";
 import { Navbar } from "components/Navbar/Navbar";
@@ -9,6 +9,8 @@ import "App.css";
 export const App: FC = () => {
 	const initialUrl = "https://pokeapi.co/api/v2/pokemon";
 	const [loading, setLoading] = useState(true);
+	const [nextPageUrl, setNextPageUrl] = useState<null | PokeApiUrl>(null);
+	const [prevPageUrl, setPrevPageUrl] = useState<null | PokeApiUrl>(null);
 	const [pokemonData, setPokemonData] = useState<[] | PokemonDetail[]>([]);
 
 	const loadPokemon = async (
@@ -23,15 +25,46 @@ export const App: FC = () => {
 	useEffect(() => {
 		const fetchPokemonData = async (): Promise<void> => {
 			// すべてのポケモンデータを取得する
-			const res = (await getAllPokemon(initialUrl)) as {
-				results: Array<{ name: string; url: PokeApiUrl }>;
-			};
+			const data = (await getAllPokemon(initialUrl)) as AllPokemonData;
+			setNextPageUrl(data.next);
+			setPrevPageUrl(data.previous);
+
 			// 各ポケモンの詳細なデータを取得
-			await loadPokemon(res.results);
+			await loadPokemon(data.results);
+
 			setLoading(false);
 		};
 		void fetchPokemonData();
 	}, []);
+
+	const handlePrevPage = async () => {
+		if (prevPageUrl === null) return;
+
+		setLoading(true);
+
+		const data = (await getAllPokemon(prevPageUrl)) as AllPokemonData;
+		setNextPageUrl(data.next);
+		setPrevPageUrl(data.previous);
+
+		// 各ポケモンの詳細なデータを取得
+		await loadPokemon(data.results);
+
+		setLoading(false);
+	};
+
+	const handleNextPage = async () => {
+		if (nextPageUrl === null) return;
+
+		setLoading(true);
+
+		const data = (await getAllPokemon(nextPageUrl)) as AllPokemonData;
+		setNextPageUrl(data.next);
+		setPrevPageUrl(data.previous);
+
+		await loadPokemon(data.results);
+
+		setLoading(false);
+	};
 
 	return (
 		<>
@@ -46,6 +79,10 @@ export const App: FC = () => {
 						})}
 					</div>
 				)}
+				<div className="btn">
+					<button onClick={handlePrevPage}>前へ</button>
+					<button onClick={handleNextPage}>次へ</button>
+				</div>
 			</div>
 		</>
 	);

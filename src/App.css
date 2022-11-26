@@ -11,3 +11,21 @@
 	place-items: center;
 	margin-top: 20px;
 }
+
+.btn {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+	justify-content: center;
+	padding: 30px 0;
+}
+
+.btn button {
+	padding: 13px 32px;
+	color: white;
+	cursor: pointer;
+	background-color: #5257a3;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 2px 8px 21px -2px #777;
+}
